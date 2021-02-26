@@ -1,5 +1,5 @@
 {
-    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
         "aseName": {
@@ -8,32 +8,14 @@
                 "description": "Name of the App Service Environment"
             }
         },
-        "aseLocation": {
-            "type": "string",
-            "allowedValues": [
-                "Central US",
-                "East US",
-                "East US 2",
-                "North Central US",
-                "South Central US",
-                "West US",
-                "North Europe",
-                "West Europe",
-                "East Asia",
-                "Southeast Asia",
-                "Japan East",
-                "Japan West",
-                "Brazil South",
-                "Australia East",
-                "Australia Southeast",
-                "West India",
-                "Central India",
-                "South India"
-            ],
-            "metadata": {
-                "description": "Location of the App Service Environment"
-            }
-        },
+        "location": { 
+            "type": "string", 
+            "metadata": { 
+                "description": "Location of the App Service Environment" 
+            },
+            "defaultValue" : "[resourceGroup().location]"
+             
+         }, 
         "ipSslAddressCount": {
             "type": "int",
             "defaultValue": 1,
@@ -41,16 +23,16 @@
                 "description": "Number of IP addresses for the IP-SSL address pool."
             }
         },
-        "existingVnetResourceId": {
-            "type": "string",
-            "metadata": {
-                "description": "ARM Url reference for the virtual network that will contain the ASE.  /subscriptions/subIDGoesHere/resourceGroups/rgNameGoesHere/providers/Microsoft.ClassicNetwork/virtualNetworks/vnetnamegoeshere"
-            }
-        },
         "subnetName": {
             "type": "string",
             "metadata": {
                 "description": "Subnet name that will contain the App Service Environment"
+            }
+        },
+        "subnetId": {
+            "type": "string",
+            "metadata": {
+                "description": "Subnet Id that will contain the App Service Environment"
             }
         },
         "frontEndSize": {
@@ -134,39 +116,39 @@
         }
     },
     "resources": [
-        {
-            "apiVersion": "2015-08-01",
-            "type": "Microsoft.Web/hostingEnvironments",
-            "name": "[parameters('aseName')]",
-            "location": "[parameters('aseLocation')]",
-            "properties": {
-                "name": "[parameters('aseName')]",
-                "location": "[parameters('aseLocation')]",
-                "ipSslAddressCount": "[parameters('ipSslAddressCount')]",
-                "virtualNetwork": {
-                    "Id": "[parameters('existingVnetResourceId')]",
-                    "Subnet": "[parameters('subnetName')]"
-                },
-                "multiSize": "[parameters('frontEndSize')]",
-                "multiRoleCount": "[parameters('frontEndCount')]",
-                "workerPools": [
-                    {
-                        "workerSizeId": 0,
-                        "workerSize": "[parameters('workerPoolOneInstanceSize')]",
-                        "workerCount": "[parameters('workerPoolOneInstanceCount')]"
-                    },
-                    {
-                        "workerSizeId": 1,
-                        "workerSize": "[parameters('workerPoolTwoInstanceSize')]",
-                        "workerCount": "[parameters('workerPoolTwoInstanceCount')]"
-                    },
-                    {
-                        "workerSizeId": 2,
-                        "workerSize": "[parameters('workerPoolThreeInstanceSize')]",
-                        "workerCount": "[parameters('workerPoolThreeInstanceCount')]"
-                    }
-                ]
+      {
+        "apiVersion": "2020-06-01",
+        "type": "Microsoft.Web/hostingEnvironments",
+        "name": "[parameters('aseName')]",
+        "location": "[parameters('location')]",
+        "properties": {
+          "name": "[parameters('aseName')]",
+          "location": "[parameters('location')]",
+          "ipSslAddressCount": "[parameters('ipSslAddressCount')]",
+          "virtualNetwork": {
+            "Id": "[parameters('subnetId')]",
+            "Subnet": "[parameters('subnetName')]"
+          },
+          "multiSize": "[parameters('frontEndSize')]",
+          "multiRoleCount": "[parameters('frontEndCount')]",
+          "workerPools": [
+            {
+              "workerSizeId": 0,
+              "workerSize": "[parameters('workerPoolOneInstanceSize')]",
+              "workerCount": "[parameters('workerPoolOneInstanceCount')]"
+            },
+            {
+              "workerSizeId": 1,
+              "workerSize": "[parameters('workerPoolTwoInstanceSize')]",
+              "workerCount": "[parameters('workerPoolTwoInstanceCount')]"
+            },
+            {
+              "workerSizeId": 2,
+              "workerSize": "[parameters('workerPoolThreeInstanceSize')]",
+              "workerCount": "[parameters('workerPoolThreeInstanceCount')]"
             }
+          ]
         }
+      }
     ]
 }

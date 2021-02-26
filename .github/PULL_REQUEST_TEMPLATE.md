@@ -1,17 +1,16 @@
---------------------MESSAGE FROM ADMIN, DELETE BEFORE SUBMITTING----------------------
+# PR Checklist
 
-Thank you for deciding to contribute to this repository, we're thrilled to have you contribute a template or a fix! :tada: Before we proceed, please be sure to review the contribution guidelines that will make the review process go smoother.
-https://github.com/Azure/azure-quickstart-templates/blob/master/1-CONTRIBUTION-GUIDE/README.md
+Check these items before submitting a PR... 
 
-We've created an outline of recommended sections to fill out that will help make this Pull Request awesome!
+[Contribution Guide](https://github.com/Azure/azure-quickstart-templates/blob/master/1-CONTRIBUTION-GUIDE/README.md)
 
---------------------MESSAGE FROM ADMIN, DELETE BEFORE SUBMITTING----------------------
+[Best Practice Guide](https://github.com/Azure/azure-quickstart-templates/blob/master/1-CONTRIBUTION-GUIDE/best-practices.md)
 
-### Changelog
+
+- [ ] - Please check this box once you've submitted the PR if you've read through the Contribution Guide and best practices checklist.
+
+## Changelog
+
 *
 *
 *
-*
-*
-
-### Description of the change

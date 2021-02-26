@@ -1,33 +1,30 @@
 {
-  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "adminPassword": {
-      "value": "GEN-PASSWORD"
-    },
-    "adminUsername": {
-      "value": "azureUser"
-    },
     "adDomainName": {
-      "value": "mydomain.local"
-    },
-    "numberOfRdshInstances": {
-      "value": 2
+      "value": "GET-PREREQ-domainName"
     },
     "adVnetName": {
-      "value": "adVnet"
+      "value": "GET-PREREQ-virtualNetworkName" 
+    },
+    "adVnetRG": {
+      "value": "GET-PREREQ-virtualNetworkResourceGroupName" 
+    },
+    "adVnetSubscriptionId": {
+      "value": "GET-PREREQ-virtualNetworkSubscriptionId" 
     },
     "adSubnetName": {
-      "value": "adsubnet"
+      "value": "GET-PREREQ-virtualNetworkSubnetName"
     },
-    "imageSKU": {
-      "value": "Windows-Server-Technical-Preview"
+    "dnsServerPrivateIp": {
+      "value": "GET-PREREQ-dnsIpAddress"
     },
-    "rdshVmSize": {
-      "value": "Standard_D2"
+    "adminUsername": {
+      "value": "quickstarts"
     },
-    "dnsLabelPrefix": {
-      "value": "GEN-UNIQUE"
+    "adminPassword": {
+      "reference": "GEN-KEYVAULT-PASSWORD-REFERENCE" 
     }
   }
 }
